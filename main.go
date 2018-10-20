@@ -7,9 +7,10 @@ import (
 )
 
 var owner = util.FromAddress("AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y")
+var node = util.FromAddress("AKkkumHbBipZ46UMZJoFynJMXzSRnBvKcs")
 
 // Main function = contract entry
-func Main(operation string, args []interface{}) interface{} {
+func Main(operation string, args []interface{}) string {
 
 	ctx := storage.GetContext()
 
@@ -23,29 +24,32 @@ func Main(operation string, args []interface{}) interface{} {
 		return listSubscribersHash(ctx, args)
 	}
 
-	return true
+	return "SUCCESS_RUN_MAIN"
 }
 
 /* Updates the IPFS-hash with list of subscribers for a specific mailing list to reflect the new list of subscribers */
-func updateSubscribersHash(ctx storage.Context, args []interface{}) interface{} {
+func updateSubscribersHash(ctx storage.Context, args []interface{}) string {
+	/*
 	if !runtime.CheckWitness(owner) {
 		runtime.Log("not the owner.. not updating list")
 		return false
-	}
+	}*/
 
 	listId := args[0].(string)
 	subsriberHash := args[1].(string)
 
 	storage.Put(ctx, listId, subsriberHash)
-	return true
+	return "SUCCESS_UPDATE_SUBSCRIBE_HASH"
 }
 
 /*retrieve the IPFS hash of a specific list to get list of subscribed users*/
-func listSubscribersHash(ctx storage.Context, args []interface{}) interface{} {
+func listSubscribersHash(ctx storage.Context, args []interface{}) string {
 	listId := args[0].(string)
+	/*
 	if !runtime.CheckWitness(owner) {
 		return "not the owner.. not getting the subscribers IPFS hash!"
 	}
-
-	return storage.Get(ctx, listId).(string)
+	 */
+	var listHash = storage.Get(ctx, listId).(string)
+	return listHash
 }
