@@ -1,0 +1,103 @@
+package neogonep5
+
+import (
+	"github.com/CityOfZion/neo-storm/interop/runtime"
+	"github.com/CityOfZion/neo-storm/interop/storage"
+	"github.com/CityOfZion/neo-storm/interop/util"
+)
+
+var owner = util.FromAddress("AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y")
+
+// Main function = contract entry
+func Main(operation string, args []interface{}) interface{} {
+
+	ctx := storage.GetContext()
+
+	if operation == "subscribe" {
+		runtime.Log("subscribe called")
+		return subscribe(ctx, args)
+	}
+	if operation == "unsubscribe" {
+		return unsubscribe(ctx, args)
+	}
+	if operation == "create" {
+		runtime.Log("create called")
+		return createList(ctx, args)
+	}
+
+	if operation == "list" {
+		runtime.Log("list called")
+		return listSubscribers(ctx, args)
+	}
+
+	return true
+}
+
+func subscribe(ctx storage.Context, args []interface{}) interface{} {
+	addr := args[0].(string)
+	listId := args[1].(string)
+
+	subscribers := storage.Get(ctx, listId).([]string)
+
+	printSubscribers(subscribers)
+
+	subscribers = append(subscribers, addr)
+	storage.Put(ctx, listId, subscribers)
+
+	printSubscribers(subscribers)
+
+	return true
+}
+func printSubscribers(subscribers []string) {
+	runtime.Log("current subscribers:")
+	for i := 0; i < len(subscribers); i++ {
+		runtime.Log(subscribers[i])
+	}
+}
+
+func unsubscribe(ctx storage.Context, args []interface{}) interface{} {
+	addr := args[0].(string)
+	listId := args[1].(string)
+
+	subscribers := storage.Get(ctx, listId).([]string)
+
+	printSubscribers(subscribers)
+
+	for i := 0; i < len(subscribers); i++ {
+		if (subscribers[i] == addr) {
+			subscribers[i] = "REMOVED ADDRESS"
+		}
+	}
+
+	storage.Put(ctx, listId, subscribers)
+
+	printSubscribers(subscribers)
+
+	return true
+}
+
+func createList(ctx storage.Context, args []interface{}) interface{} {
+	if !runtime.CheckWitness(owner) {
+		runtime.Log("not the owner.. not creating a new list")
+		return false
+	}
+
+	list_id := args[0].(string)
+
+	if len(storage.Get(ctx, list_id).([]byte))==0 {
+		newSubscribers := runtime.Serialize([]string{"AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y"})
+		storage.Put(ctx, list_id, newSubscribers)
+		return true
+	}
+	runtime.Log("already initialised")
+	return false
+}
+
+func listSubscribers(ctx storage.Context, args []interface{}) interface{} {
+	listId := args[0].(string)
+	if !runtime.CheckWitness(owner) {
+		return "not the owner.. not getting the subscribers list!"
+	}
+
+	return storage.Get(ctx, listId).([]string)
+}
