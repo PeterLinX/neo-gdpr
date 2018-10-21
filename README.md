@@ -7,7 +7,6 @@
 - Plot table wit IPFS result hashes
 - On user page: "your hash is" so that he can look it up
 
-
 ##Niels
 - Slides
 - Dialogflow
