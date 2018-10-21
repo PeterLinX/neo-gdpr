@@ -9,16 +9,16 @@
           <p class="card-text">Select newsletters to receive: </p>
 
           Default Newsletter<br>
-          <label class="switch">
+          <!-- <label class="switch">
             <input type="checkbox" ng-model="confirmed" ng-change="change()" id="ng-change-example1" />
             <span class="slider round"></span>
-          </label>
+          </label> -->
 
-          <a (click)="subscribe()" class="btn btn-error">UNSUBSCRIBE</a>
+          <a *ngIf='!subscribed' (click)="subscribe()" class="btn btn-danger">UNSUBSCRIBE</a>
           <br>
-          <a (click)="unsubscribe()" class="btn btn-primary">SUBSCRIBE</a>
+          <a *ngIf='subscribed' (click)="unsubscribe()" class="btn btn-primary">SUBSCRIBE</a>
 
-          {{ng-change-example1}}
+          <!-- {{ng-change-example1}} -->
 
           <!-- <br>
 

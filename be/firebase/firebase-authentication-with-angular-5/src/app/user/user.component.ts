@@ -15,6 +15,7 @@ import { FirebaseUserModel } from '../core/user.model';
 export class UserComponent implements OnInit{
 
   user: FirebaseUserModel = new FirebaseUserModel();
+  subscribed: boolean;
   profileForm: FormGroup;
 
   constructor(
@@ -43,10 +44,22 @@ export class UserComponent implements OnInit{
     });
   }
 
-  change(){
-    console.log("AAAAAAA")
+  subscribe(){
+    console.log("subscribe")
+    this.subscribed = true
     // console.log(confirmed)
-    this.authService.unsubscribe("AAA")
+    var toRun = 'testinvoke 0x2cd1380a87107b8bc3731871f7ea3318a167d06d update [“newsletter_1”,“QmfTJTArNhjKbZtXuZFbg5tZPugughDiTTPWnMaLScsEgJ”]'
+    alert(toRun);
+    // this.authService.unsubscribe("AAA")
+  }
+
+  unsubscribe(){
+    console.log("unsubscribe")
+    this.subscribed = false
+    // console.log(confirmed)
+    var toRun = 'testinvoke 0x2cd1380a87107b8bc3731871f7ea3318a167d06d update [“newsletter_1”,“QmQ6YMDhikq9TdVWBDRxwgvrEPxKnsvHvxMXBMDTZqXeQo”]'
+    alert(toRun);
+    // this.authService.unsubscribe("AAA")
   }
 
   save(value){
