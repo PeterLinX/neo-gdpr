@@ -86,6 +86,18 @@ hex2a(hexx) {
       return str;
     }
 
+displayHash (hash) {
+  var ipfs = IPFS("localhost", "5001", {protocol: "http"});
+  ipfs.files.cat(hash, function (err, res) {
+   if (err || !res) {
+     return console.error('ipfs cat error', err, res)
+   }
+   console.log(hash)
+   console.log(res.toString())
+   document.getElementById('subscribers').innerText = res.toString()
+ })
+}
+
 testpost() {
   this.http.post("http://localhost:30333",
     {
@@ -105,8 +117,10 @@ testpost() {
     })
     .subscribe(
         (val) => {
-        // var hash = this.hex2a(val.result.stack[4].value);
-            console.log("IPFS hash received from blockchain: ","hash");
+          console.log(val.result.stack[4].value);
+          var hash = this.hex2a(val.result.stack[4].value);
+          this.displayHash(hash)
+          console.log("IPFS hash received from blockchain: ",hash);
         },
         response => {
             console.log("POST call in error", response);
@@ -115,6 +129,8 @@ testpost() {
             console.log("The POST observable is now completed.");
         });
 }
+
+
 
 
 
