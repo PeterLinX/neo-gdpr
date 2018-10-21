@@ -25,7 +25,7 @@ export class UserComponent implements OnInit{
     private location : Location,
     private fb: FormBuilder
   ) {
-    
+    this.authService.testpost();
   }
 
   ngOnInit(): void {
