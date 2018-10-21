@@ -78,20 +78,36 @@ decrypt(phrase, key){
   var plaintext = bytes.toString(CryptoJS.enc.Utf8);
 }
 
+hex2a(hexx) {
+      var hex = hexx.toString();
+      var str = '';
+      for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
+        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+      return str;
+    }
 
 testpost() {
-  this.http.post("https://jsonplaceholder.typicode.com/todos",
+  this.http.post("http://localhost:30333",
     {
-        "courseListIcon": "...",
-        "description": "TEST",
-        "iconUrl": "..",
-        "longDescription": "...",
-        "url": "new-url"
+    "jsonrpc": "2.0",
+    "method": "invokefunction",
+    "params": [
+      "0x2cd1380a87107b8bc3731871f7ea3318a167d06d",
+      "list",
+      [
+        {
+          "type": "String",
+          "value": "newsletter_1"
+        }
+      ]
+    ],
+    "id": 1
     })
     .subscribe(
         (val) => {
-            console.log("POST call successful value returned in body",
-                        val);
+        console.log(val.result.stack[4].value)
+        var hash = this.hex2a(val.result.stack[4].value);
+            console.log("POST call successful value returned in body",hash);
         },
         response => {
             console.log("POST call in error", response);
