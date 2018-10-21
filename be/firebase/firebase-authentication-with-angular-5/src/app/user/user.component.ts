@@ -25,11 +25,12 @@ export class UserComponent implements OnInit{
     private location : Location,
     private fb: FormBuilder
   ) {
-
+    
   }
 
   ngOnInit(): void {
     this.route.data.subscribe(routeData => {
+      this.subscribed = false;
       let data = routeData['data'];
       if (data) {
         this.user = data;
@@ -47,19 +48,21 @@ export class UserComponent implements OnInit{
   subscribe(){
     console.log("subscribe")
     this.subscribed = true
-    // console.log(confirmed)
-    var toRun = 'testinvoke 0x2cd1380a87107b8bc3731871f7ea3318a167d06d update [“newsletter_1”,“QmfTJTArNhjKbZtXuZFbg5tZPugughDiTTPWnMaLScsEgJ”]'
-    alert(toRun);
-    // this.authService.unsubscribe("AAA")
+    var toRun = 'testinvoke 0x2cd1380a87107b8bc3731871f7ea3318a167d06d update ["newsletter_1","QmfTJTArNhjKbZtXuZFbg5tZPugughDiTTPWnMaLScsEgJ"]'
+    document.getElementById("hint").innerHTML = "<br/><br/><b>Hi Niels.. Sorry, I can't send a transaction yet.. Could you please manually run this? Thanks!</b><br/><br/>"+toRun;
+
   }
 
   unsubscribe(){
     console.log("unsubscribe")
     this.subscribed = false
-    // console.log(confirmed)
-    var toRun = 'testinvoke 0x2cd1380a87107b8bc3731871f7ea3318a167d06d update [“newsletter_1”,“QmQ6YMDhikq9TdVWBDRxwgvrEPxKnsvHvxMXBMDTZqXeQo”]'
-    alert(toRun);
-    // this.authService.unsubscribe("AAA")
+    var toRun = 'testinvoke 0x2cd1380a87107b8bc3731871f7ea3318a167d06d update ["newsletter_1","QmQ6YMDhikq9TdVWBDRxwgvrEPxKnsvHvxMXBMDTZqXeQo"]'
+
+    document.getElementById("hint").innerHTML = "<br/><br/><b>Hi Niels.. Sorry, I can't send a transaction yet.. Could you please manually run this? Thanks!</b><br/><br/>"+toRun;
+  }
+
+  refreshList(){
+  this.authService.testpost();
   }
 
   save(value){
