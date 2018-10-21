@@ -6,6 +6,7 @@ import * as objHash from 'object-hash';
 import * as IPFS from 'ipfs-api';
 import * as  NodeRSA from 'node-rsa';
 import * as CryptoJS from "crypto-js";
+import { HttpClient } from '@angular/common/http';
 
 declare const Buffer
 
@@ -14,7 +15,8 @@ declare const Buffer
 export class AuthService {
 
   constructor(
-   public afAuth: AngularFireAuth
+   public afAuth: AngularFireAuth,
+   public http: HttpClient
  ){}
 
   doFacebookLogin(){
@@ -54,6 +56,9 @@ export class AuthService {
     queryRef.get().then(res => {
 
       console.log(res)
+      res.docs.forEach(doc => {
+          console.log(doc.id, '=>', doc.data());
+        });
     }, err => console.log(err))
   }
 
@@ -74,8 +79,36 @@ decrypt(phrase, key){
 }
 
 
+testpost() {
+  this.http.post("https://jsonplaceholder.typicode.com/todos",
+    {
+        "courseListIcon": "...",
+        "description": "TEST",
+        "iconUrl": "..",
+        "longDescription": "...",
+        "url": "new-url"
+    })
+    .subscribe(
+        (val) => {
+            console.log("POST call successful value returned in body",
+                        val);
+        },
+        response => {
+            console.log("POST call in error", response);
+        },
+        () => {
+            console.log("The POST observable is now completed.");
+        });
+}
+
+
+
  goToIpfs(){
 // https://ipfs.io/ipfs/
+  this.testpost()
+ // console.log( this.http.get("www.google.be"))
+
+
     var ipfs = IPFS("localhost", "5001", {protocol: "http"});
     // const ipfs = IpfsApi({
     //   host: 'localhost',
