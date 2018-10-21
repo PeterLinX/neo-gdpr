@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
       <div class="card" style="width: 20rem;">
-        <img class="card-img-top image" [src]="user.image" alt="Card image cap" style="border-radius: 50%;">
+        <img class="card-img-top image" [src]="user.image" alt="Card image cap">
         <div *ngIf='user.provider != "password"'class="card-body">
           <h4 class="card-title">{{user.name}}</h4>
 
@@ -14,7 +14,9 @@
             <span class="slider round"></span>
           </label>
 
-          <a (click)="change()" class="btn btn-primary">UNSUBSCRIBE</a>
+          <a (click)="subscribe()" class="btn btn-error">UNSUBSCRIBE</a>
+          <br>
+          <a (click)="unsubscribe()" class="btn btn-primary">SUBSCRIBE</a>
 
           {{ng-change-example1}}
 
