@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		function hex2a(hexx) {
+			var hex = hexx.toString();
+			var str = '';
+			for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
+				str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+			return str;
+		}
+		req=JSON.stringify({
+			"jsonrpc": "2.0",
+			"method": "invokefunction",
+			"params": [
+			"0x2cd1380a87107b8bc3731871f7ea3318a167d06d",
+			"list",
+			[{
+				"type": "String",
+				"value": "newsletter_1"
+			}
+			]],
+			"id": 1})
+		$(document).ready(function(){
+			$.post( "http://localhost:30333", req)
+			.done(function( data ) {
+				console.log(hex2a(data.result.stack[4].value))});
+		});
+</script>
+</head>
+<body>
+	<div id="hashes">
+		
+	</div>
+</body>
+</html>
