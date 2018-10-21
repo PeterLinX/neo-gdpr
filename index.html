@@ -34,6 +34,7 @@
 			$.post( "http://localhost:30333", req)
 			.done(function( data ) {
 				hash = hex2a(data.result.stack[4].value);
+				console.log(hash)
 				email_hashes = stubIPFSResult(hash);
 
 				$.each(email_hashes, function(i, item) {

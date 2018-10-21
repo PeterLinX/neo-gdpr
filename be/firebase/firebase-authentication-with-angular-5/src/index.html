@@ -2,13 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>NEO with GDPR</title>
+  <title>GDPR on NEO</title>
   <base href="/">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root></app-root>
+	<style>
+	.topbar {
+	    position: fixed;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 60px;
+	    background-color: #58BF00;
+	    color: white;
+	    text-align: center;
+	    line-height: 40px;
+	}
+	.footer {
+	    position: fixed;
+	    left: 0;
+	    bottom: 0;
+	    width: 100%;
+	    height: 40px;
+	    background-color: #58BF00;
+	    color: white;
+	    text-align: center;
+	    line-height: 40px;
+	}
+	.main {
+		top: 10%;
+	}
+	</style>
+	<div class="topbar">
+		<p><h3>GDPR on NEO</h3></p>
+	</div>
+	<br><br><br><br>
+	<app-root></app-root>
+	<div class="footer">
+		<p>G-Team - Neo Hackathon</p>
+	</div>
 </body>
 </html>
