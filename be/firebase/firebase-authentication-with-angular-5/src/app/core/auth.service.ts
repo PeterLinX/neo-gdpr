@@ -45,9 +45,22 @@ export class AuthService {
     })
   }
 
+  unsubscribe(user_mail){
+    console.log("UNSUBSCRIBE")
+    const firestore = firebase.firestore();
+    var key = this.generateKey();
+    var hash = objHash(this.encrypt(user_mail, key));
+    var queryRef = firestore.collection('permissions').where('hash', '==', hash);
+    queryRef.get().then(res => {
+
+      console.log(res)
+    }, err => console.log(err))
+  }
+
 
 generateKey(){
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  return "niels"
+  // return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
 encrypt(phrase, key){
@@ -62,7 +75,7 @@ decrypt(phrase, key){
 
 
  goToIpfs(){
-
+// https://ipfs.io/ipfs/
     var ipfs = IPFS("localhost", "5001", {protocol: "http"});
     // const ipfs = IpfsApi({
     //   host: 'localhost',
@@ -103,7 +116,7 @@ decrypt(phrase, key){
      decryption_key: key,
      encrypted_email: this.encrypt(email, key),
      gender: 'M',
-     hash: objHash(email),
+     hash: objHash(this.encrypt(email, key)),
      subscription: 'default_newsletter'
    };
    var setDoc = firestore.collection('permissions').add(data);

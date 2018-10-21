@@ -10,16 +10,21 @@
 
           Default Newsletter<br>
           <label class="switch">
-            <input type="checkbox" checked>
+            <input type="checkbox" ng-model="confirmed" ng-change="change()" id="ng-change-example1" />
             <span class="slider round"></span>
           </label>
-          <br>
+
+          <a (click)="change()" class="btn btn-primary">UNSUBSCRIBE</a>
+
+          {{ng-change-example1}}
+
+          <!-- <br>
 
           Extra Newsletter<br>
           <label class="switch">
             <input type="checkbox" checked>
             <span class="slider round"></span>
-          </label>
+          </label> -->
 
         </div>
         <div *ngIf='user.provider == "password"'class="card-body">

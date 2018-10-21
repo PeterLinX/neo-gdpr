@@ -43,6 +43,12 @@ export class UserComponent implements OnInit{
     });
   }
 
+  change(){
+    console.log("AAAAAAA")
+    // console.log(confirmed)
+    this.authService.unsubscribe("AAA")
+  }
+
   save(value){
 
     this.userService.updateCurrentUser(value)
