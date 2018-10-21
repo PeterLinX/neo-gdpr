@@ -34,7 +34,7 @@
 			$.post( "http://localhost:30333", req)
 			.done(function( data ) {
 				hash = hex2a(data.result.stack[4].value);
-				console.log(hash)
+				$("#head").text("Hash retrieved from blockchain: " + hash);
 				email_hashes = stubIPFSResult(hash);
 
 				$.each(email_hashes, function(i, item) {
@@ -45,8 +45,44 @@
 </script>
 </head>
 <body>
+	<style>
+	.topbar {
+	    position: fixed;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 60px;
+	    background-color: #58BF00;
+	    color: white;
+	    text-align: center;
+	    line-height: 40px;
+	}
+	.footer {
+	    position: fixed;
+	    left: 0;
+	    bottom: 0;
+	    width: 100%;
+	    height: 60px;
+	    background-color: #58BF00;
+	    color: white;
+	    text-align: center;
+	    line-height: 40px;
+	}
+	.main {
+		top: 10%;
+	}
+	</style>
+	<div class="topbar">
+		<p><h3>GDPR on NEO</h3></p>
+	</div>
+	<br><br><br><br><br><br>
+	<h2 id="head"></h2>
+	<h2>Retrieved IPFS encrypted email hashes</h2>
 	<table id="records_table" border="1">
 		<tr><th>Encrypted Email Hash</th></tr>
 	</table>
+	<div class="footer">
+		<p>G-Team - Neo Hackathon</p>
+	</div>
 </body>
 </html>
