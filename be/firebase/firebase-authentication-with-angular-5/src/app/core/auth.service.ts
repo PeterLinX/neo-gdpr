@@ -105,9 +105,8 @@ testpost() {
     })
     .subscribe(
         (val) => {
-        console.log(val.result.stack[4].value)
         var hash = this.hex2a(val.result.stack[4].value);
-            console.log("POST call successful value returned in body",hash);
+            console.log("IPFS hash received from blockchain: ",hash);
         },
         response => {
             console.log("POST call in error", response);
